@@ -38,84 +38,11 @@
             </ul>
         </nav>
         <div id="layoutSidenav">
-            <!-- <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                    <div class="sb-sidenav-menu">
-                        <div class="nav">
-                            <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="index.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
-                            </a>
-                            <div class="sb-sidenav-menu-heading">Interface</div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Layouts
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.html">Static Navigation</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
-                                </nav>
-                            </div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                Pages
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                        Authentication
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="login.html">Login</a>
-                                            <a class="nav-link" href="register.html">Register</a>
-                                            <a class="nav-link" href="password.html">Forgot Password</a>
-                                        </nav>
-                                    </div>
-                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                        Error
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="401.html">401 Page</a>
-                                            <a class="nav-link" href="404.html">404 Page</a>
-                                            <a class="nav-link" href="500.html">500 Page</a>
-                                        </nav>
-                                    </div>
-                                </nav>
-                            </div>
-                            <div class="sb-sidenav-menu-heading">Addons</div>
-                            <a class="nav-link" href="charts.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Charts
-                            </a>
-                            <a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Tables
-                            </a>
-                        </div>
-                    </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        Start Bootstrap
-                    </div>
-                </nav>
-            </div> -->
             <div id="layoutSidenav_content" style="padding-left: 0">
                 <main>
                     <div class="container-fluid px-4">
-                        <!-- <h1 class="mt-4">Dashboard</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Dashboard</li>
-                        </ol> -->
                         <div class="row mt-4">
-                            <div class="col-xl-6 col-md-6">
+                            <div class="col-xl-6 col-md-6" v-on:click="tipe = 'kriteria'">
                                 <div class="card bg-primary text-white mb-4">
                                     <div class="card-body">Data Kriteria</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
@@ -124,7 +51,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-6 col-md-6">
+                            <div class="col-xl-6 col-md-6" v-on:click="tipe = 'alternatif'">
                                 <div class="card bg-success text-white mb-4">
                                     <div class="card-body">Data Alternatif</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
@@ -134,489 +61,87 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card mb-4">
+                        <div class="card mb-4" v-if="tipe == 'kriteria'">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
                                 Data Kriteria
+                                <button class="btn btn-sm btn-success" style="float: right;" data-bs-toggle="modal" data-bs-target="#exampleModal" v-on:click="
+                                    id_kriteria = null;
+                                    kd_kriteria = '';
+                                    nama_kriteria = '';
+                                    bobot_kriteria = ''
+                                ">Tambah</button>
                             </div>
                             <div class="card-body">
                                 <table class="table table-sm table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Kode Kriteria</th>
+                                            <th scope="col">Nama Kriteria</th>
+                                            <th scope="col">Bobot Kriteria</th>
+                                            <th scope="col">Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
+                                        <tr v-for="(item, index) in listKriteria">
+                                          <td>{{index + 1}}</td>
+                                          <td>{{item.kd_kriteria}}</td>
+                                          <td>{{item.nama_kriteria}}</td>
+                                          <td>{{item.bobot_kriteria}}</td>
+                                          <td>
+                                            <button type="button" class="btn btn-success btn-sm" v-on:click="
+                                                id_kriteria = item.id_kriteria; 
+                                                nama_kriteria = item.nama_kriteria; 
+                                                getListSubKriteria()" data-bs-toggle="modal" data-bs-target="#modalSubKriteria">Sub Kriteria</button>
+                                            <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" v-on:click="
+                                                id_kriteria = item.id_kriteria; 
+                                                kd_kriteria = item.kd_kriteria; 
+                                                nama_kriteria = item.nama_kriteria; 
+                                                bobot_kriteria = item.bobot_kriteria"
+                                            >Ubah</button>
+                                            <button type="button" class="btn btn-danger btn-sm" data-bs-target="#deleteKriteria" data-bs-toggle="modal" v-on:click="
+                                                id_kriteria = item.id_kriteria; 
+                                                nama_kriteria = item.nama_kriteria"
+                                            >Hapus</button>
+                                          </td>
                                         </tr>
                                         <tr>
-                                            <td>Garrett Winters</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>63</td>
-                                            <td>2011/07/25</td>
-                                            <td>$170,750</td>
+                                          <td colspan="3" align="center"><strong>TOTAL</strong></td>
+                                          <td colspan="2">{{total_weight}}</td>
                                         </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card mb-4" v-if="tipe == 'alternatif'">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Data Alternatif
+                                <button class="btn btn-sm btn-warning" style="float: right; margin-left: 0.5%;">Hitung VIKOR</button>
+                                <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#saveAlternatif" style="float: right;" v-on:click="resetForm()">Tambah</button>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-sm table-bordered">
+                                    <thead>
                                         <tr>
-                                            <td>Ashton Cox</td>
-                                            <td>Junior Technical Author</td>
-                                            <td>San Francisco</td>
-                                            <td>66</td>
-                                            <td>2009/01/12</td>
-                                            <td>$86,000</td>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Kode Alternatif</th>
+                                            <th scope="col">Nama Alternatif</th>
+                                            <th scope="col" v-for="item in listKriteria">{{item.nama_kriteria}}</th>
+                                            <th scope="col">Aksi</th>
                                         </tr>
-                                        <tr>
-                                            <td>Cedric Kelly</td>
-                                            <td>Senior Javascript Developer</td>
-                                            <td>Edinburgh</td>
-                                            <td>22</td>
-                                            <td>2012/03/29</td>
-                                            <td>$433,060</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Airi Satou</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>33</td>
-                                            <td>2008/11/28</td>
-                                            <td>$162,700</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Brielle Williamson</td>
-                                            <td>Integration Specialist</td>
-                                            <td>New York</td>
-                                            <td>61</td>
-                                            <td>2012/12/02</td>
-                                            <td>$372,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Herrod Chandler</td>
-                                            <td>Sales Assistant</td>
-                                            <td>San Francisco</td>
-                                            <td>59</td>
-                                            <td>2012/08/06</td>
-                                            <td>$137,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Rhona Davidson</td>
-                                            <td>Integration Specialist</td>
-                                            <td>Tokyo</td>
-                                            <td>55</td>
-                                            <td>2010/10/14</td>
-                                            <td>$327,900</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Colleen Hurst</td>
-                                            <td>Javascript Developer</td>
-                                            <td>San Francisco</td>
-                                            <td>39</td>
-                                            <td>2009/09/15</td>
-                                            <td>$205,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sonya Frost</td>
-                                            <td>Software Engineer</td>
-                                            <td>Edinburgh</td>
-                                            <td>23</td>
-                                            <td>2008/12/13</td>
-                                            <td>$103,600</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jena Gaines</td>
-                                            <td>Office Manager</td>
-                                            <td>London</td>
-                                            <td>30</td>
-                                            <td>2008/12/19</td>
-                                            <td>$90,560</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Quinn Flynn</td>
-                                            <td>Support Lead</td>
-                                            <td>Edinburgh</td>
-                                            <td>22</td>
-                                            <td>2013/03/03</td>
-                                            <td>$342,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Charde Marshall</td>
-                                            <td>Regional Director</td>
-                                            <td>San Francisco</td>
-                                            <td>36</td>
-                                            <td>2008/10/16</td>
-                                            <td>$470,600</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Haley Kennedy</td>
-                                            <td>Senior Marketing Designer</td>
-                                            <td>London</td>
-                                            <td>43</td>
-                                            <td>2012/12/18</td>
-                                            <td>$313,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tatyana Fitzpatrick</td>
-                                            <td>Regional Director</td>
-                                            <td>London</td>
-                                            <td>19</td>
-                                            <td>2010/03/17</td>
-                                            <td>$385,750</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Michael Silva</td>
-                                            <td>Marketing Designer</td>
-                                            <td>London</td>
-                                            <td>66</td>
-                                            <td>2012/11/27</td>
-                                            <td>$198,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Paul Byrd</td>
-                                            <td>Chief Financial Officer (CFO)</td>
-                                            <td>New York</td>
-                                            <td>64</td>
-                                            <td>2010/06/09</td>
-                                            <td>$725,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Gloria Little</td>
-                                            <td>Systems Administrator</td>
-                                            <td>New York</td>
-                                            <td>59</td>
-                                            <td>2009/04/10</td>
-                                            <td>$237,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Bradley Greer</td>
-                                            <td>Software Engineer</td>
-                                            <td>London</td>
-                                            <td>41</td>
-                                            <td>2012/10/13</td>
-                                            <td>$132,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Dai Rios</td>
-                                            <td>Personnel Lead</td>
-                                            <td>Edinburgh</td>
-                                            <td>35</td>
-                                            <td>2012/09/26</td>
-                                            <td>$217,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jenette Caldwell</td>
-                                            <td>Development Lead</td>
-                                            <td>New York</td>
-                                            <td>30</td>
-                                            <td>2011/09/03</td>
-                                            <td>$345,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Yuri Berry</td>
-                                            <td>Chief Marketing Officer (CMO)</td>
-                                            <td>New York</td>
-                                            <td>40</td>
-                                            <td>2009/06/25</td>
-                                            <td>$675,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Caesar Vance</td>
-                                            <td>Pre-Sales Support</td>
-                                            <td>New York</td>
-                                            <td>21</td>
-                                            <td>2011/12/12</td>
-                                            <td>$106,450</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Doris Wilder</td>
-                                            <td>Sales Assistant</td>
-                                            <td>Sidney</td>
-                                            <td>23</td>
-                                            <td>2010/09/20</td>
-                                            <td>$85,600</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Angelica Ramos</td>
-                                            <td>Chief Executive Officer (CEO)</td>
-                                            <td>London</td>
-                                            <td>47</td>
-                                            <td>2009/10/09</td>
-                                            <td>$1,200,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Gavin Joyce</td>
-                                            <td>Developer</td>
-                                            <td>Edinburgh</td>
-                                            <td>42</td>
-                                            <td>2010/12/22</td>
-                                            <td>$92,575</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jennifer Chang</td>
-                                            <td>Regional Director</td>
-                                            <td>Singapore</td>
-                                            <td>28</td>
-                                            <td>2010/11/14</td>
-                                            <td>$357,650</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Brenden Wagner</td>
-                                            <td>Software Engineer</td>
-                                            <td>San Francisco</td>
-                                            <td>28</td>
-                                            <td>2011/06/07</td>
-                                            <td>$206,850</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Fiona Green</td>
-                                            <td>Chief Operating Officer (COO)</td>
-                                            <td>San Francisco</td>
-                                            <td>48</td>
-                                            <td>2010/03/11</td>
-                                            <td>$850,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Shou Itou</td>
-                                            <td>Regional Marketing</td>
-                                            <td>Tokyo</td>
-                                            <td>20</td>
-                                            <td>2011/08/14</td>
-                                            <td>$163,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Michelle House</td>
-                                            <td>Integration Specialist</td>
-                                            <td>Sidney</td>
-                                            <td>37</td>
-                                            <td>2011/06/02</td>
-                                            <td>$95,400</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Suki Burks</td>
-                                            <td>Developer</td>
-                                            <td>London</td>
-                                            <td>53</td>
-                                            <td>2009/10/22</td>
-                                            <td>$114,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Prescott Bartlett</td>
-                                            <td>Technical Author</td>
-                                            <td>London</td>
-                                            <td>27</td>
-                                            <td>2011/05/07</td>
-                                            <td>$145,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Gavin Cortez</td>
-                                            <td>Team Leader</td>
-                                            <td>San Francisco</td>
-                                            <td>22</td>
-                                            <td>2008/10/26</td>
-                                            <td>$235,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Martena Mccray</td>
-                                            <td>Post-Sales support</td>
-                                            <td>Edinburgh</td>
-                                            <td>46</td>
-                                            <td>2011/03/09</td>
-                                            <td>$324,050</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Unity Butler</td>
-                                            <td>Marketing Designer</td>
-                                            <td>San Francisco</td>
-                                            <td>47</td>
-                                            <td>2009/12/09</td>
-                                            <td>$85,675</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Howard Hatfield</td>
-                                            <td>Office Manager</td>
-                                            <td>San Francisco</td>
-                                            <td>51</td>
-                                            <td>2008/12/16</td>
-                                            <td>$164,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Hope Fuentes</td>
-                                            <td>Secretary</td>
-                                            <td>San Francisco</td>
-                                            <td>41</td>
-                                            <td>2010/02/12</td>
-                                            <td>$109,850</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Vivian Harrell</td>
-                                            <td>Financial Controller</td>
-                                            <td>San Francisco</td>
-                                            <td>62</td>
-                                            <td>2009/02/14</td>
-                                            <td>$452,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Timothy Mooney</td>
-                                            <td>Office Manager</td>
-                                            <td>London</td>
-                                            <td>37</td>
-                                            <td>2008/12/11</td>
-                                            <td>$136,200</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jackson Bradshaw</td>
-                                            <td>Director</td>
-                                            <td>New York</td>
-                                            <td>65</td>
-                                            <td>2008/09/26</td>
-                                            <td>$645,750</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Olivia Liang</td>
-                                            <td>Support Engineer</td>
-                                            <td>Singapore</td>
-                                            <td>64</td>
-                                            <td>2011/02/03</td>
-                                            <td>$234,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Bruno Nash</td>
-                                            <td>Software Engineer</td>
-                                            <td>London</td>
-                                            <td>38</td>
-                                            <td>2011/05/03</td>
-                                            <td>$163,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sakura Yamamoto</td>
-                                            <td>Support Engineer</td>
-                                            <td>Tokyo</td>
-                                            <td>37</td>
-                                            <td>2009/08/19</td>
-                                            <td>$139,575</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Thor Walton</td>
-                                            <td>Developer</td>
-                                            <td>New York</td>
-                                            <td>61</td>
-                                            <td>2013/08/11</td>
-                                            <td>$98,540</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Finn Camacho</td>
-                                            <td>Support Engineer</td>
-                                            <td>San Francisco</td>
-                                            <td>47</td>
-                                            <td>2009/07/07</td>
-                                            <td>$87,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Serge Baldwin</td>
-                                            <td>Data Coordinator</td>
-                                            <td>Singapore</td>
-                                            <td>64</td>
-                                            <td>2012/04/09</td>
-                                            <td>$138,575</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Zenaida Frank</td>
-                                            <td>Software Engineer</td>
-                                            <td>New York</td>
-                                            <td>63</td>
-                                            <td>2010/01/04</td>
-                                            <td>$125,250</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Zorita Serrano</td>
-                                            <td>Software Engineer</td>
-                                            <td>San Francisco</td>
-                                            <td>56</td>
-                                            <td>2012/06/01</td>
-                                            <td>$115,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jennifer Acosta</td>
-                                            <td>Junior Javascript Developer</td>
-                                            <td>Edinburgh</td>
-                                            <td>43</td>
-                                            <td>2013/02/01</td>
-                                            <td>$75,650</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cara Stevens</td>
-                                            <td>Sales Assistant</td>
-                                            <td>New York</td>
-                                            <td>46</td>
-                                            <td>2011/12/06</td>
-                                            <td>$145,600</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Hermione Butler</td>
-                                            <td>Regional Director</td>
-                                            <td>London</td>
-                                            <td>47</td>
-                                            <td>2011/03/21</td>
-                                            <td>$356,250</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Lael Greer</td>
-                                            <td>Systems Administrator</td>
-                                            <td>London</td>
-                                            <td>21</td>
-                                            <td>2009/02/27</td>
-                                            <td>$103,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jonas Alexander</td>
-                                            <td>Developer</td>
-                                            <td>San Francisco</td>
-                                            <td>30</td>
-                                            <td>2010/07/14</td>
-                                            <td>$86,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Shad Decker</td>
-                                            <td>Regional Director</td>
-                                            <td>Edinburgh</td>
-                                            <td>51</td>
-                                            <td>2008/11/13</td>
-                                            <td>$183,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Michael Bruce</td>
-                                            <td>Javascript Developer</td>
-                                            <td>Singapore</td>
-                                            <td>29</td>
-                                            <td>2011/06/27</td>
-                                            <td>$183,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Donna Snider</td>
-                                            <td>Customer Support</td>
-                                            <td>New York</td>
-                                            <td>27</td>
-                                            <td>2011/01/25</td>
-                                            <td>$112,000</td>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(item, index) in listAlternatif">
+                                            <td>{{index + 1}}</td>
+                                            <td>{{item.kd_alternatif}}</td>
+                                            <td>{{item.nama_alternatif}}</td>
+                                            <td class="td-nilai-alternatif" v-for="header in listKriteria">{{item.detail[header.nama_kriteria]}}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-warning btn-sm" v-on:click="getAlternatifDetail(item.id_alternatif, item.kd_alternatif, item.nama_alternatif)" data-bs-toggle="modal" data-bs-target="#saveAlternatif">Ubah</button>
+                                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteAlternatif" v-on:click="id_alternatif = item.id_alternatif; nama_alternatif = item.nama_alternatif;">Hapus</button>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -625,7 +150,209 @@
                     </div>
                 </main>
             </div>
+            <div class="modal fade" role="dialog" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">{{id_kriteria ? 'Ubah' : 'Tambah'}} Kriteria</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="row">
+                                <div class="col-12">
+                                  <label for="kodekriteria" class="col-form-label">Kode Kriteria</label>
+                                    <div class="col-auto">
+                                    <input type="hidden" class="form-control" name="id_kriteria" v-bind:value="id_kriteria">
+                                    <input type="text" class="form-control form-control-sm field-kriteria" name="kd_kriteria" v-model="kd_kriteria">
+                                  </div>
+                                </div>
+                                <div class="col-12">
+                                  <label for="namakriteria" class="col-form-label">Nama Kriteria</label>
+                                    <div class="col-auto">
+                                      <input type="text" class="form-control form-control-sm field-kriteria" name="nama_kriteria" v-model="nama_kriteria">
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-3">
+                                  <label for="bobotkriteria" class="col-form-label">Bobot Kriteria</label>
+                                    <div class="col-auto">
+                                      <input type="text" class="form-control form-control-sm field-kriteria" name="bobot_kriteria" v-model="bobot_kriteria">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-success btn-sm btn-simpan-kriteria" v-on:click="saveKriteria()" data-bs-dismiss="modal">Simpan</button>
+                                  <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Tutup</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="deleteKriteria" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Konfirmasi Penghapusan Kriteria</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <span>Anda yakin ingin menghapus kriteria {{nama_kriteria}} ?</span>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-success" v-on:click="deleteKriteria()" data-bs-dismiss="modal">YES</button>
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">NO</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="modalSubKriteria" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Sub Kriteria {{nama_kriteria}}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body row">
+                            <div class="col-12">
+                                <button class="btn btn-sm btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#modalAddSubKriteria" v-on:click="
+                                    id_subkriteria = 0;
+                                    nama_subkriteria = '';
+                                    nilai_rating = ''">
+                                    Tambah
+                                </button>
+                            </div>
+                            <div class="col-12">
+                                <table class="table table-bordered table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama Sub Kriteria</th>
+                                            <th>Nilai Rating</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(item, index) in listSubKriteria">
+                                            <td>{{index + 1}}</td>
+                                            <td>{{item.nama_subkriteria}}</td>
+                                            <td>{{item.nilai_rating}}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-warning btn-sm" data-bs-target="#modalAddSubKriteria" data-bs-toggle="modal" v-on:click="id_subkriteria = item.id_subkriteria; nama_subkriteria = item.nama_subkriteria; nilai_rating = item.nilai_rating">Ubah</button>
+                                                <button type="button" class="btn btn-danger btn-sm" data-bs-target="#deleteSubKriteria" data-bs-toggle="modal" v-on:click="id_subkriteria = item.id_subkriteria; nama_subkriteria = item.nama_subkriteria;">Hapus</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="deleteSubKriteria" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Konfirmasi Penghapusan Sub Kriteria Kriteria</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <span>Anda yakin ingin menghapus sub kriteria {{nama_subkriteria}} ?</span>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success" data-bs-dismiss="modal" v-on:click="deleteSubKriteria()">YES</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">NO</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="modalAddSubKriteria" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">{{id_subkriteria ? 'Ubah' : 'Tambah'}} Sub Kriteria</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-12">
+                                <label for="namakriteria" class="col-form-label">Nama Sub Kriteria</label>
+                                <div class="col-auto">
+                                    <input type="hidden" class="form-control" name="id_kriteria" v-bind:value="id_kriteria">
+                                    <input type="hidden" class="form-control" name="id_subkriteria" id="id_subkriteria" v-bind:value="id_subkriteria">
+                                    <input type="text" class="form-control form-control-sm field-subkriteria" name="nama_subkriteria" v-model="nama_subkriteria">
+                                </div>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="bobotkriteria" class="col-form-label">Nilai Rating</label>
+                                <div class="col-auto">
+                                  <input type="number" class="form-control form-control-sm field-subkriteria" name="nilai_rating" v-model="nilai_rating">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" v-on:click="saveSubKriteria()" data-bs-dismiss="modal" class="btn btn-success btn-simpan-subkriteria btn-sm">Simpan</button>
+                              <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Tutup</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="saveAlternatif" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Form Alternatif</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body row">
+                            <div class="col-6">
+                                <label class="col-form-label">Kode Alternatif</label>
+                                <input type="hidden" class="form-control" name="id_alternatif" id="id_alternatif" v-model="obj_alternatif.id_alternatif">
+                                <input class="form-control field-alternatif" name="kd_alternatif" id="kd_alternatif" v-model="obj_alternatif.kd_alternatif">
+                            </div>
+                            <div class="col-6">
+                                <label class="col-form-label">Nama Alternatif</label>
+                                <input class="form-control field-alternatif" name="nama_alternatif" id="nama_alternatif" v-model="obj_alternatif.nama_alternatif">
+                            </div>
+                            <div class="col-6" v-for="item in optionSubKriteria">
+                                <label for="kodealternatif" class="col-form-label">{{item.nama_kriteria}}</label>
+                                <div class="col-auto">
+                                    <select class="form-control field-alternatif" v-bind:name="item.id_kriteria" v-model="obj_alternatif[item.id_kriteria]" v-bind:id="item.id_kriteria">
+                                        <option value="0">Pilih {{item.nama_kriteria}}</option>
+                                        <option v-for="option in item.list" v-bind:value="option.value">{{option.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success btn-sm btn-simpan-alternatif" v-on:click="saveAlternatif()" data-bs-dismiss="modal">Simpan</button>
+                            <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Tutup</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="deleteAlternatif" tabindex="-1" aria-labelledby="deleteAlternatif" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Konfirmasi Penghapusan Alternatif</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <span>Anda yakin ingin menghapus alternatif {{nama_alternatif}} ?</span>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success btn-sm" v-on:click="deleteAlternatif()" data-bs-dismiss="modal">YES</button>
+                            <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">NO</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="asset/sbadmin/js/scripts.js"></script>
         <script src="asset/jquery-3.6.0.js"></script>
@@ -634,6 +361,7 @@
             const vue = new Vue({
               el: '#layoutSidenav',
               data: {
+                tipe: null,
                 listIdealSolution: null,
                 listAlternatifPlus: null,
                 listAlternatifMinus: null,
@@ -650,19 +378,42 @@
                 is_empty: $('.td-nilai-alternatif').toArray().map(r => $(r).text()).filter(s => s == '-').length,
                 range_field: null,
                 detail: null,
-                alternatif_choosen: null
+                alternatif_choosen: null,
+                listSubKriteria: null,
+                nama_kriteria: '',
+                id_kriteria: 0,
+                nama_subkriteria: '',
+                id_subkriteria: 0,
+                kd_kriteria: '',
+                bobot_kriteria: '',
+                nilai_rating: '',
+                listKriteria: null,
+                optionSubKriteria: null,
+                obj_alternatif: {},
+                listAlternatif: null
               },
               methods: {
                 getAlternatifDetail: async (id_alternatif, kd_alternatif, nama_alternatif) => {
                   const data = await $.ajax({url: 'Dataalternatif/getAlternatifDetail/' + id_alternatif, dataType: 'JSON'})
                   for (const idx in data) {
-                    $(`[name="${data[idx].id_kriteria}"]`).val(data[idx].id_sub_kriteria)
-                    $(`[name="nilai_alternatif-${data[idx].id_kriteria}"]`).val(data[idx].nilai_alternatif)
+                    vue.obj_alternatif[data[idx].id_kriteria] = data[idx].id_sub_kriteria
+                    /*$(`[name="${data[idx].id_kriteria}"]`).val(data[idx].id_sub_kriteria)
+                    $(`[name="nilai_alternatif-${data[idx].id_kriteria}"]`).val(data[idx].nilai_alternatif)*/
                   }
-                  vue.kd_alternatif = kd_alternatif
-                  vue.id_alternatif = id_alternatif
-                  vue.nama_alternatif = nama_alternatif
+                  // $(`[name="id_alternatif"]`).val(id_alternatif)
+                  // $(`[name="kd_alternatif"]`).val(kd_alternatif)
+                  // $(`[name="nama_alternatif"]`).val(nama_alternatif)
+                  vue.obj_alternatif.kd_alternatif = kd_alternatif
+                  vue.obj_alternatif.id_alternatif = id_alternatif
+                  vue.obj_alternatif.nama_alternatif = nama_alternatif
                   console.log(data)
+                },
+                getListSubKriteria: async () => {
+                    const data = await $.ajax({
+                      url: `Datakriteria/getListSubKriteria/${vue.id_kriteria}`,
+                      dataType: 'JSON',
+                    })
+                    vue.listSubKriteria = data
                 },
                 sortAlternatif: () => {
                   vue.listPreferences.sort((a, b) =>  b.result - a.result)
@@ -670,9 +421,72 @@
                 reload: () => {
                   location.reload()
                 },
-                resetForm: () => {
-                  $('#id_alternatif').val(0)
-                  $('.field-alternatif').each((idx, el) => $(el).val($(`#${$(el).attr('id')}`).html().length ? 0 : ''))
+                saveKriteria: () => {
+                    const obj = {
+                        kd_kriteria: vue.kd_kriteria,
+                        nama_kriteria: vue.nama_kriteria,
+                        bobot_kriteria: vue.bobot_kriteria
+                    }
+                    if (vue.id_kriteria) obj.id_kriteria = vue.id_kriteria
+                    $.ajax({
+                        url: "<?php echo base_url()?>Datakriteria/insert",
+                        type: 'POST',
+                        data: obj,
+                        success: () => vue.getListKriteria()
+                    })
+                },
+                saveAlternatif: () => {
+                    /*const obj = {
+                        kd_kriteria: vue.kd_kriteria,
+                        nama_kriteria: vue.nama_kriteria,
+                        bobot_kriteria: vue.bobot_kriteria
+                    }
+                    if (vue.id_kriteria) obj.id_kriteria = vue.id_kriteria*/
+                    $.ajax({
+                        url: "<?php echo base_url()?>Dataalternatif/insert",
+                        type: 'POST',
+                        data: vue.obj_alternatif,
+                        success: () => vue.getListAlternatif()
+                    })
+                },
+                deleteKriteria: () => {
+                    $.ajax({
+                        url:"<?php echo base_url()?>Datakriteria/delete",
+                        type: 'POST',
+                        data: {id_kriteria: vue.id_kriteria},
+                        success: () => vue.getListKriteria()
+                    })
+                },
+                deleteAlternatif: () => {
+                    $.ajax({
+                        url:"<?php echo base_url()?>Dataalternatif/delete",
+                        type: 'POST',
+                        data: {id_alternatif: vue.id_alternatif},
+                        success: () => vue.getListAlternatif()
+                    })
+                },
+                saveSubKriteria: () => {
+                    const obj = {
+                        id_kriteria: vue.id_kriteria,
+                        nama_subkriteria: vue.nama_subkriteria,
+                        nilai_rating: vue.nilai_rating,
+                        id_subkriteria: vue.id_subkriteria
+                    }
+                    // if (vue.id_subkriteria) obj.id_subkriteria = vue.id_subkriteria
+                    $.ajax({
+                        url: "<?php echo base_url()?>Datakriteria/insertSub",
+                        type: 'POST',
+                        data: obj,
+                        success: () => vue.getListSubKriteria()
+                    })
+                },
+                deleteSubKriteria: () => {
+                    $.ajax({
+                        url:"<?php echo base_url()?>Datakriteria/deleteSub",
+                        type: 'POST',
+                        data: {id_subkriteria: vue.id_subkriteria},
+                        success: () => vue.getListSubKriteria()
+                    })
                 },
                 showError: () => {
                   if($('.field-alternatif').toArray().map(r => $(r).val()).filter(s => !s.length).length) 
@@ -695,9 +509,48 @@
                   const alternatif = vue.listAlternatif.filter(r => r.nama_alternatif == vue.listPreferences[0].nama_alternatif)[0]
                   vue.alternatif_choosen = alternatif.nama_alternatif
                   vue.detail = JSON.parse(alternatif.detail)
+                },
+                getListKriteria: async () => {
+                    const data = await $.ajax({
+                        url:"<?php echo base_url()?>Datakriteria/getList?>",
+                        dataType: 'JSON'
+                    })
+                    vue.listKriteria = data
+                    vue.total_weight = data.map(r => eval(r.bobot_kriteria)).reduce((a, b) => a + b)
+                },
+                getOptionSubKriteria: async () => {
+                    const data = await $.ajax({
+                        url:"<?php echo base_url()?>Datakriteria/getOptionSubKriteria?>",
+                        dataType: 'JSON'
+                    })
+                    for (const idx in data) data[idx].list = JSON.parse(data[idx].list)
+                    vue.optionSubKriteria = data
+                    // vue.total_weight = data.map(r => eval(r.bobot_kriteria)).reduce((a, b) => a + b)
+                },
+                getListAlternatif: async () => {
+                    const data = await $.ajax({
+                        url:"<?php echo base_url()?>Dataalternatif/getListAlternatif?>",
+                        dataType: 'JSON'
+                    })
+                    for (const idx in data) data[idx].detail = JSON.parse(data[idx].detail)
+                    vue.listAlternatif = data
+                    // vue.total_weight = data.map(r => eval(r.bobot_kriteria)).reduce((a, b) => a + b)
+                },
+                resetForm: async () => {
+                    setTimeout(() => {
+                        vue.obj_alternatif = {
+                            kd_alternatif: '',
+                            nama_alternatif: ''
+                        }
+                        for (const idx in vue.listKriteria) vue.obj_alternatif[vue.listKriteria[idx].id_kriteria] = 0
+                    }, 500)
                 }
               },
               async mounted() {
+                this.getOptionSubKriteria()
+                this.getListKriteria()
+                this.getListAlternatif()
+                this.resetForm()
                 const list = []
                 const listAlternatifPlus = []
                 const listAlternatifMinus = []

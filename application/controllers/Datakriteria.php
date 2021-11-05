@@ -10,6 +10,10 @@ class Datakriteria extends CI_Controller {
 		
 	}
 
+	public function getList(){
+		echo json_encode($this->db->get('m_kriteria')->result());
+	}
+
 	public function insert() {
 		if ($_POST['id_kriteria'])
 			$this->db->where('id_kriteria', $_POST['id_kriteria'])->update('m_kriteria', $_POST);
@@ -53,6 +57,19 @@ class Datakriteria extends CI_Controller {
 	public function deleteSub() {
 		$this->db->where('id_subkriteria', $_POST['id_subkriteria'])->delete('m_subkriteria');
 		$this->showAlert('Sub Kriteria', 'hapus');
+	}
+
+	public function getOptionSubKriteria() {
+		echo json_encode(
+			$this->db->query("
+				SELECT 
+					ms.id_kriteria, mk.nama_kriteria, is_range, CONCAT(
+					'[', GROUP_CONCAT('{', '\"value\":', id_subkriteria, ',', '\"name\":', '\"', nama_subkriteria, '\"', '}'), ']'
+					) list
+				FROM m_subkriteria ms 
+				INNER JOIN m_kriteria mk ON mk.id_kriteria = ms.id_kriteria 
+				GROUP BY 1, 2, 3")->result()
+		);
 	}
 
 	/*public function test_data() {
