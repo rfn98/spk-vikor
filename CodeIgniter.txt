@@ -1,0 +1,53 @@
+Setup config : $config['base_url'] = 'http://localhost/ci/'; => ke alamat yang utama
+
+Install easyui letakan di folder asset pada htdocs/ci, pengertian asset adalah sebagai aset bagi web kita
+
+Nama class harus sama dengan nama file
+
+http://localhost/ci/index.php/login -> klo tidak ada function dibelakangnya dia akan manggil index.php, jangan panggil .php tetapi panggil classnya
+
+<!-- menghilangkan fungsi index : 
+buat .htaccess letakan difolder depan
+
+RewriteEngine On
+RewriteCond $1 !^(index\.php|images|robots\.txt)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L,QSA]
+
+Options All -Indexes
+-->
+
+
+Cek handling error -> web developer -> network
+
+$autoload['helper'] = array('url'); //link base url
+
+
+Materi 19 10 2019 
+
+Buat database -> latihan3m.php
+Buat tabel -> login -> username, password, email, level, nama lengkap, last_login (datetime)
+lalu buka database.php (config) lalu setting koneksi hostname -> masukin domain / ip
+lalu autoload.php -> isi autoload library dengan aray ('database','session');
+
+method = 2 : get -> link, post ->background
+
+
+
+Session = ada di sisi server
+Cookies = ada di sisi client
+
+function --construct()
+$this->load->->model('global_m');   -> untuk memanggil class secara global 
+klo lebih dari 1 tambahkan array $this->load->->model(array,'global_m','');
+
+secara default -> controller/welcome.php
+cara ubah ke default login -> ubah ke login.php pada route.php
+
+cara bikin validasi -> tambahkan pada login.php 
+
+
+<input class="easyui-textbox" required="true" style="width:100%;height60px" data-options="label":'Alamat:' multiline:true">
+                </div>
+
