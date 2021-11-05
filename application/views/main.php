@@ -118,7 +118,7 @@
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
                                 Data Alternatif
-                                <button class="btn btn-sm btn-warning" style="float: right; margin-left: 0.5%;">Hitung VIKOR</button>
+                                <button class="btn btn-sm btn-warning" style="float: right; margin-left: 0.5%;" data-bs-target="#step1" data-bs-toggle="modal" v-on:click="getListMatrixDecision()">Hitung VIKOR</button>
                                 <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#saveAlternatif" style="float: right;" v-on:click="resetForm()">Tambah</button>
                             </div>
                             <div class="card-body">
@@ -351,6 +351,136 @@
                     </div>
                 </div>
             </div>
+
+            <div class="modal fade" id="step1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" style="max-width: 910px;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">1. Data Matriks Keputusan</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-sm table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Alternatif</th>
+                                        <th scope="col" v-for="item in listKriteria">{{item.nama_kriteria}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(item, index) in listMatrixDecision">
+                                      <td>{{index + 1}}</td>
+                                      <td>{{item.nama_alternatif}}</td>
+                                      <td v-for="header in listKriteria" v-bind:class="header.nama_kriteria">{{item.detail[header.nama_kriteria]}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#step2" v-on:click="getListMatrixNormalize()">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="step2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" style="max-width: 910px;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">2. Data Matriks Normalisasi</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-sm table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Alternatif</th>
+                                        <th scope="col" v-for="item in listKriteria">{{item.nama_kriteria}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(item, index) in listMatrixDecision">
+                                      <td>{{index + 1}}</td>
+                                      <td>{{item.nama_alternatif}}</td>
+                                      <td v-for="header in listKriteria" v-bind:class="header.nama_kriteria">{{item.detail[header.nama_kriteria]}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#step3" v-on:click="getListMatrixNormalizedWeight()">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="step3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" style="max-width: 910px;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">3. Data Matriks Normalisasi Bobot</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-sm table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Alternatif</th>
+                                        <th scope="col" v-for="item in listKriteria">{{item.nama_kriteria}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(item, index) in listMatrixDecision">
+                                      <td>{{index + 1}}</td>
+                                      <td>{{item.nama_alternatif}}</td>
+                                      <td v-for="header in listKriteria" v-bind:class="item.nama_alternatif">{{item.detail[header.nama_kriteria]}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#step4" v-on:click="getUtilityMeasures()">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="step4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" style="max-width: 910px;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">4. Menghitung Utility Measures (S) dan Regret Measures (R)</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-sm table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Alternatif</th>
+                                        <th scope="col">S</th>
+                                        <th scope="col">R</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(item, index) in listUtility">
+                                      <td>{{index + 1}}</td>
+                                      <td>{{item.nama_alternatif}}</td>
+                                      <td v-bind:class="item.nama_alternatif + '-utility'">{{item.utility}}</td>
+                                      <td v-bind:class="item.nama_alternatif + '-regret'">{{item.regret}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#step5">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
@@ -390,7 +520,10 @@
                 listKriteria: null,
                 optionSubKriteria: null,
                 obj_alternatif: {},
-                listAlternatif: null
+                listAlternatif: null,
+                listMatrixDecision: null,
+                listUtility: null,
+                listIndexVikor: null
               },
               methods: {
                 getAlternatifDetail: async (id_alternatif, kd_alternatif, nama_alternatif) => {
@@ -536,6 +669,55 @@
                     vue.listAlternatif = data
                     // vue.total_weight = data.map(r => eval(r.bobot_kriteria)).reduce((a, b) => a + b)
                 },
+                getListMatrixDecision: async () => {
+                    const data = await $.ajax({
+                        url:"<?php echo base_url()?>Dataalternatif/getListMatrixDecision?>",
+                        dataType: 'JSON'
+                    })
+                    for (const idx in data) data[idx].detail = JSON.parse(data[idx].detail)
+                    vue.listMatrixDecision = data
+                    // vue.total_weight = data.map(r => eval(r.bobot_kriteria)).reduce((a, b) => a + b)
+                },
+                getListMatrixNormalize: async () => {
+                    const obj = {}
+                    for (const idx in vue.listKriteria) {
+                        obj[vue.listKriteria[idx].nama_kriteria + '_max'] = Math.max(...$('.' + vue.listKriteria[idx].nama_kriteria.replaceAll(' ', '.')).toArray().map(e => eval($(e).text())))
+                        obj[vue.listKriteria[idx].nama_kriteria + '_min'] = Math.min(...$('.' + vue.listKriteria[idx].nama_kriteria.replaceAll(' ', '.')).toArray().map(e => eval($(e).text())))
+                    }
+                    for (const idx in vue.listMatrixDecision) 
+                        for (const item in vue.listKriteria) {
+                            const nama_kriteria = vue.listKriteria[item].nama_kriteria
+                            const nilai = vue.listMatrixDecision[idx].detail[nama_kriteria]
+                            vue.listMatrixDecision[idx].detail[nama_kriteria] = (((obj[nama_kriteria + '_max'] - nilai)/(obj[nama_kriteria + '_max'] - obj[nama_kriteria + '_min'])) || 0).toFixed(2)
+                        }
+                },
+                getListMatrixNormalizedWeight: async () => {
+                    for (const idx in vue.listMatrixDecision) 
+                        for (const item in vue.listKriteria) {
+                            const nama_kriteria = vue.listKriteria[item].nama_kriteria
+                            const nilai = vue.listMatrixDecision[idx].detail[nama_kriteria]
+                            vue.listMatrixDecision[idx].detail[nama_kriteria] = (nilai*eval(vue.listKriteria[item].bobot_kriteria) || 0).toFixed(4)
+                        }
+                },
+                getUtilityMeasures: async () => {
+                    vue.listUtility = []
+                    for (const item in vue.listAlternatif) vue.listUtility.push({
+                        nama_alternatif: vue.listAlternatif[item].nama_alternatif,
+                        utility: $('.' + vue.listAlternatif[item].nama_alternatif.replaceAll(' ', '.')).toArray().map(e => eval($(e).text())).reduce((a,b) => a + b).toFixed(4),
+                        regret: Math.max(...$('.' + vue.listAlternatif[item].nama_alternatif.replaceAll(' ', '.')).toArray().map(e => eval($(e).text()))).toFixed(4)
+                    })
+                },
+                /*getIndexVikor: async () => {
+                    vue.listIndexVikor = []
+                    const utilityMin = Math.min(...vue.listUtility.map(r => r.utility))
+                    const utilityMax = Math.max(...vue.listUtility.map(r => r.utility))
+                    const regretMin = Math.min(...vue.listUtility.map(r => r.regret))
+                    const regretMax = Math.max(...vue.listUtility.map(r => r.regret))
+                    for (const item in vue.listAlternatif) vue.listUtility.push({
+                        nama_alternatif: vue.listAlternatif[item].nama_alternatif,
+                        index_vikor: $('.' + vue.listAlternatif[item].nama_alternatif.replaceAll(' ', '.'))
+                    })
+                },*/
                 resetForm: async () => {
                     setTimeout(() => {
                         vue.obj_alternatif = {

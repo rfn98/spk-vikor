@@ -43,6 +43,19 @@ class Dataalternatif extends CI_Controller {
 		]);
 	}
 
+	public function getListMatrixDecision() {
+		echo json_encode(
+			$this->db->query("
+				SELECT 
+					ad.id_alternatif, nama_alternatif, CONCAT('{', GROUP_CONCAT('\"', nama_kriteria, '\"', ':', '\"', nilai_rating, '\"'), '}') detail 
+				FROM alternatif_detail ad 
+				INNER JOIN m_subkriteria ms ON ms.id_subkriteria = ad.id_sub_kriteria 
+				INNER JOIN m_alternatif ma ON ma.id_alternatif = ad.id_alternatif 
+				INNER JOIN m_kriteria mk ON mk.id_kriteria = ad.id_kriteria 
+				GROUP BY 1,2")->result()
+		);
+	}
+
 	public function insert() {
 		$id = null;
 		$insert = null;
