@@ -32,7 +32,7 @@
                         <!-- <li><a class="dropdown-item" href="#!">Settings</a></li>
                         <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                         <li><hr class="dropdown-divider" /></li> -->
-                        <li><a class="dropdown-item" href="#!">Logout</a></li>
+                        <li><a class="dropdown-item" href="login">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -357,7 +357,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">1. Data Matriks Keputusan</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close step" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <table class="table table-sm table-bordered">
@@ -378,7 +378,7 @@
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#step2" v-on:click="getListMatrixNormalize()">Next</button>
+                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#step2" v-on:click="getListMatrixNormalize()">Next</button>
                         </div>
                     </div>
                 </div>
@@ -389,7 +389,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">2. Data Matriks Normalisasi</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close step" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <table class="table table-sm table-bordered">
@@ -410,7 +410,7 @@
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#step3" v-on:click="getListMatrixNormalizedWeight()">Next</button>
+                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#step3" v-on:click="getListMatrixNormalizedWeight()">Next</button>
                         </div>
                     </div>
                 </div>
@@ -421,7 +421,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">3. Data Matriks Normalisasi Bobot</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close step" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <table class="table table-sm table-bordered">
@@ -442,7 +442,7 @@
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#step4" v-on:click="getUtilityMeasures()">Next</button>
+                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#step4" v-on:click="getUtilityMeasures()">Next</button>
                         </div>
                     </div>
                 </div>
@@ -453,7 +453,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">4. Menghitung Utility Measures (S) dan Regret Measures (R)</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close step" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <table class="table table-sm table-bordered">
@@ -476,7 +476,72 @@
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#step5">Next</button>
+                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#step5" v-on:click="getIndexVikor()">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="step5" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" style="max-width: 910px;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">5. Menghitung Indeks VIKOR (Q)</h5>
+                            <button type="button" class="btn-close step" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-sm table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Alternatif</th>
+                                        <th scope="col">Q</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(item, index) in listIndexVikor">
+                                      <td>{{index + 1}}</td>
+                                      <td>{{item.nama_alternatif}}</td>
+                                      <td>{{item.index_vikor}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#step6" v-on:click="getResultRankingAlternatif()">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="step6" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" style="max-width: 910px;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">6. Hasil Perankingan Alternatif</h5>
+                            <button type="button" class="btn-close step" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-sm table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Alternatif</th>
+                                        <th scope="col">Q</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(item, index) in listIndexVikor">
+                                      <td>{{index + 1}}</td>
+                                      <td>{{item.nama_alternatif}}</td>
+                                      <td>{{item.index_vikor}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <!-- <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#step5">Next</button> -->
+                            <button type="button" class="btn btn-danger btn-sm" v-on:click="closeModal()">Close</button>
                         </div>
                     </div>
                 </div>
@@ -707,17 +772,35 @@
                         regret: Math.max(...$('.' + vue.listAlternatif[item].nama_alternatif.replaceAll(' ', '.')).toArray().map(e => eval($(e).text()))).toFixed(4)
                     })
                 },
-                /*getIndexVikor: async () => {
+                getIndexVikor: async () => {
                     vue.listIndexVikor = []
                     const utilityMin = Math.min(...vue.listUtility.map(r => r.utility))
                     const utilityMax = Math.max(...vue.listUtility.map(r => r.utility))
                     const regretMin = Math.min(...vue.listUtility.map(r => r.regret))
                     const regretMax = Math.max(...vue.listUtility.map(r => r.regret))
-                    for (const item in vue.listAlternatif) vue.listUtility.push({
-                        nama_alternatif: vue.listAlternatif[item].nama_alternatif,
-                        index_vikor: $('.' + vue.listAlternatif[item].nama_alternatif.replaceAll(' ', '.'))
-                    })
-                },*/
+                    for (const item in vue.listAlternatif) {
+                        const utilityAlternatif = eval($('.' + vue.listAlternatif[item].nama_alternatif.replaceAll(' ', '.') + '-utility').text())
+                        const regretAlternatif = eval($('.' + vue.listAlternatif[item].nama_alternatif.replaceAll(' ', '.') + '-regret').text())
+                        vue.listIndexVikor.push({
+                            nama_alternatif: vue.listAlternatif[item].nama_alternatif,
+                            utility_min: utilityMin,
+                            utility_max: utilityMax,
+                            regret_min: regretMin,
+                            regret_max: regretMax,
+                            utility_alternatif: utilityAlternatif,
+                            regret_alternatif: regretAlternatif,
+                            diff_utilityAlternatif_utilityMin: utilityAlternatif - utilityMin,
+                            diff_utilityMax_utilityMin: utilityMax - utilityMin,
+                            diff_regretAlternatif_regretMin: regretAlternatif - regretMin,
+                            diff_regretMax_regretMin: regretMax - regretMin,
+                            index_vikor: ((0.5 * ((utilityAlternatif - utilityMin)/(utilityMax - utilityMin))) + ((1 - 0.5) * ((regretAlternatif - regretMin)/(regretMax - regretMin)))).toFixed(4)
+                        })
+                    }
+                },
+                getResultRankingAlternatif: async () => {
+                    vue.listIndexVikor.sort((a, b) => a.index_vikor - b.index_vikor)
+                },
+                closeModal: async() => $('.btn-close.step').click(),
                 resetForm: async () => {
                     setTimeout(() => {
                         vue.obj_alternatif = {
