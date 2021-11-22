@@ -64,7 +64,7 @@ class Datakriteria extends CI_Controller {
 			$this->db->query("
 				SELECT 
 					ms.id_kriteria, mk.nama_kriteria, is_range, CONCAT(
-					'[', GROUP_CONCAT('{', '\"value\":', id_subkriteria, ',', '\"name\":', '\"', nama_subkriteria, '\"', '}'), ']'
+					'[', GROUP_CONCAT('{', '\"value\":', id_subkriteria, ',', '\"name\":', '\"', nama_subkriteria, '\"', ',', '\"min\":', '\"', min_value, '\"', ',', '\"max\":', '\"', max_value, '\"', '}'), ']'
 					) list
 				FROM m_subkriteria ms 
 				INNER JOIN m_kriteria mk ON mk.id_kriteria = ms.id_kriteria 

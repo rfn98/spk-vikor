@@ -56,7 +56,7 @@ class Dataalternatif extends CI_Controller {
 		);
 	}
 
-	public function insert() {
+	public function insertOld() {
 		$id = null;
 		$insert = null;
 		$is_update = false;
@@ -109,6 +109,51 @@ class Dataalternatif extends CI_Controller {
 		// var_dump($_POST);
 	}
 
+	public function insert() {
+		$id = null;
+		$insert = null;
+		$is_update = false;
+		if (isset($_POST['id_alternatif'])) {
+			$this->db->where('id_alternatif', $_POST['id_alternatif'])
+			->update('m_alternatif', [
+				'kd_alternatif' => $_POST['kd_alternatif'], 
+				'nama_alternatif' => $_POST['nama_alternatif']
+			]);
+			$id = $_POST['id_alternatif'];
+			$is_update = true;
+			unset($_POST['id_alternatif']);
+		} else {
+			$insert = $this->db->insert('m_alternatif', ['kd_alternatif' => $_POST['kd_alternatif'], 'nama_alternatif' => $_POST['nama_alternatif']]);
+			$id = $this->db->insert_id();
+		}
+		unset($_POST['kd_alternatif']);
+		unset($_POST['nama_alternatif']);
+
+		foreach ($_POST as $key => $value) {
+			if(strpos($key, 'nilai') === false && isset($_POST['nilai_alternatif-'.$key])) {
+				$_POST[$key] = $value.'-'.$_POST['nilai_alternatif-'.$key];
+				unset($_POST['nilai_alternatif-'.$key]);
+			}	
+		}
+
+		foreach ($_POST as $key => $value) {
+			$dataInsert = [
+				'id_alternatif' => $id,
+				'id_kriteria' => $key,
+				'id_sub_kriteria' => explode('-', $value)[0],
+				'nilai_alternatif' => count(explode('-', $value)) > 1 ? explode('-', $value)[1] : ''
+			];
+			!$is_update ? $this->db->insert('alternatif_detail', $dataInsert) : $this->db->where([
+				'id_alternatif' => $id,
+				'id_kriteria' => $key
+			])->update('alternatif_detail', $dataInsert);
+		}
+
+		/*echo "<pre>";
+		var_dump($_POST);
+		echo "</pre>";*/
+	}
+
 	public function delete() {
 		$this->db->where('id_alternatif', $_POST['id_alternatif'])->delete('alternatif_detail');
 		$this->db->where('id_alternatif', $_POST['id_alternatif'])->delete('m_alternatif');
@@ -137,13 +182,24 @@ class Dataalternatif extends CI_Controller {
 			$this->db->query("
 				SELECT 
 					ad.id_alternatif, nama_alternatif, kd_alternatif, CONCAT ('{', GROUP_CONCAT('\"', nama_kriteria, '\"', ':', '\"', 
-					CASE WHEN is_range = 0 THEN nama_subkriteria eLse nilai_alternatif END, '\"'), '}') detail 
+					nama_subkriteria, '\"'), '}') detail 
 				FROM alternatif_detail ad 
 				INNER JOIN m_subkriteria ms ON ms.id_subkriteria = ad.id_sub_kriteria 
 				INNER JOIN m_alternatif ma ON ma.id_alternatif = ad.id_alternatif 
 				INNER JOIN m_kriteria mk ON mk.id_kriteria = ad.id_kriteria 
 				GROUP BY 1, 2, 3")->result()
 		);
+		/*echo json_encode(
+			$this->db->query("
+				SELECT 
+					ad.id_alternatif, nama_alternatif, kd_alternatif, CONCAT ('{', GROUP_CONCAT('\"', nama_kriteria, '\"', ':', '\"', 
+					CASE WHEN is_range = 0 THEN nama_subkriteria eLse nilai_alternatif END, '\"'), '}') detail 
+				FROM alternatif_detail ad 
+				INNER JOIN m_subkriteria ms ON ms.id_subkriteria = ad.id_sub_kriteria 
+				INNER JOIN m_alternatif ma ON ma.id_alternatif = ad.id_alternatif 
+				INNER JOIN m_kriteria mk ON mk.id_kriteria = ad.id_kriteria 
+				GROUP BY 1, 2, 3")->result()
+		);*/
 	}
 }
 ?>

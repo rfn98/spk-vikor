@@ -69,7 +69,8 @@
                                     id_kriteria = null;
                                     kd_kriteria = '';
                                     nama_kriteria = '';
-                                    bobot_kriteria = ''
+                                    bobot_kriteria = '';
+                                    is_range = false;
                                 ">Tambah</button>
                             </div>
                             <div class="card-body">
@@ -93,12 +94,14 @@
                                             <button type="button" class="btn btn-success btn-sm" v-on:click="
                                                 id_kriteria = item.id_kriteria; 
                                                 nama_kriteria = item.nama_kriteria; 
+                                                is_range = item.is_range == 1 ? true : false;
                                                 getListSubKriteria()" data-bs-toggle="modal" data-bs-target="#modalSubKriteria">Sub Kriteria</button>
                                             <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" v-on:click="
                                                 id_kriteria = item.id_kriteria; 
                                                 kd_kriteria = item.kd_kriteria; 
                                                 nama_kriteria = item.nama_kriteria; 
-                                                bobot_kriteria = item.bobot_kriteria"
+                                                bobot_kriteria = item.bobot_kriteria;
+                                                is_range = item.is_range == 1 ? true : false;"
                                             >Ubah</button>
                                             <button type="button" class="btn btn-danger btn-sm" data-bs-target="#deleteKriteria" data-bs-toggle="modal" v-on:click="
                                                 id_kriteria = item.id_kriteria; 
@@ -178,6 +181,14 @@
                                       <input type="text" class="form-control form-control-sm field-kriteria" name="bobot_kriteria" v-model="bobot_kriteria">
                                     </div>
                                 </div>
+                                <div class="col-12 mb-3">
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" id="is_range" name="is_range" v-model="is_range">
+                                      <label class="form-check-label" for="is_range">
+                                        Range
+                                      </label>
+                                    </div>
+                                </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-success btn-sm btn-simpan-kriteria" v-on:click="saveKriteria()" data-bs-dismiss="modal">Simpan</button>
                                   <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Tutup</button>
@@ -207,7 +218,7 @@
             </div>
 
             <div class="modal fade" id="modalSubKriteria" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Sub Kriteria {{nama_kriteria}}</h5>
@@ -218,7 +229,9 @@
                                 <button class="btn btn-sm btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#modalAddSubKriteria" v-on:click="
                                     id_subkriteria = 0;
                                     nama_subkriteria = '';
-                                    nilai_rating = ''">
+                                    nilai_rating = ''
+                                    min_value = ''
+                                    max_value = ''">
                                     Tambah
                                 </button>
                             </div>
@@ -228,6 +241,7 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Nama Sub Kriteria</th>
+                                            <th v-if="is_range">Range</th>
                                             <th>Nilai Rating</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -236,9 +250,10 @@
                                         <tr v-for="(item, index) in listSubKriteria">
                                             <td>{{index + 1}}</td>
                                             <td>{{item.nama_subkriteria}}</td>
+                                            <td v-if="is_range">{{item.min_value}} - {{item.max_value}}</td>
                                             <td>{{item.nilai_rating}}</td>
                                             <td>
-                                                <button type="button" class="btn btn-warning btn-sm" data-bs-target="#modalAddSubKriteria" data-bs-toggle="modal" v-on:click="id_subkriteria = item.id_subkriteria; nama_subkriteria = item.nama_subkriteria; nilai_rating = item.nilai_rating">Ubah</button>
+                                                <button type="button" class="btn btn-warning btn-sm" data-bs-target="#modalAddSubKriteria" data-bs-toggle="modal" v-on:click="id_subkriteria = item.id_subkriteria; nama_subkriteria = item.nama_subkriteria; nilai_rating = item.nilai_rating; min_value = item.min_value; max_value = item.max_value;">Ubah</button>
                                                 <button type="button" class="btn btn-danger btn-sm" data-bs-target="#deleteSubKriteria" data-bs-toggle="modal" v-on:click="id_subkriteria = item.id_subkriteria; nama_subkriteria = item.nama_subkriteria;">Hapus</button>
                                             </td>
                                         </tr>
@@ -284,10 +299,28 @@
                                     <input type="text" class="form-control form-control-sm field-subkriteria" name="nama_subkriteria" v-model="nama_subkriteria">
                                 </div>
                             </div>
-                            <div class="col-12 mb-3">
+                            <div class="col-12" v-if="is_range">
                                 <label for="bobotkriteria" class="col-form-label">Nilai Rating</label>
                                 <div class="col-auto">
                                   <input type="number" class="form-control form-control-sm field-subkriteria" name="nilai_rating" v-model="nilai_rating">
+                                </div>
+                            </div>
+                            <div class="col-12 mb-3" v-if="!is_range">
+                                <label for="bobotkriteria" class="col-form-label">Nilai Rating</label>
+                                <div class="col-auto">
+                                  <input type="number" class="form-control form-control-sm field-subkriteria" name="nilai_rating" v-model="nilai_rating">
+                                </div>
+                            </div>
+                            <div class="col-12" v-if="is_range">
+                                <label for="bobotkriteria" class="col-form-label">Range Minimum</label>
+                                <div class="col-auto">
+                                  <input type="number" class="form-control form-control-sm field-subkriteria" name="min_value" v-model="min_value">
+                                </div>
+                            </div>
+                            <div class="col-12 mb-3" v-if="is_range">
+                                <label for="bobotkriteria" class="col-form-label">Range Maksimum</label>
+                                <div class="col-auto">
+                                  <input type="number" class="form-control form-control-sm field-subkriteria" name="max_value" v-model="max_value">
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -318,12 +351,23 @@
                             </div>
                             <div class="col-6" v-for="item in optionSubKriteria">
                                 <label for="kodealternatif" class="col-form-label">{{item.nama_kriteria}}</label>
-                                <div class="col-auto">
-                                    <select class="form-control field-alternatif" v-bind:name="item.id_kriteria" v-model="obj_alternatif[item.id_kriteria]" v-bind:id="item.id_kriteria">
-                                        <option value="0">Pilih {{item.nama_kriteria}}</option>
-                                        <option v-for="option in item.list" v-bind:value="option.value">{{option.name}}</option>
-                                    </select>
-                                </div>
+                                <template v-if="item.is_range == 1">
+                                    <div class="col-auto">
+                                        <input class="form-control form-control-sm" v-model="obj_alternatif['nilai_alternatif-' + item.id_kriteria ]" v-on:keyup="setValueKriteria(item.id_kriteria)">
+                                        <select class="form-control form-control-sm field-alternatif" v-bind:name="item.id_kriteria" v-model="obj_alternatif[item.id_kriteria]" v-bind:id="item.id_kriteria" disabled>
+                                            <option value="0">Kategori {{item.nama_kriteria}}</option>
+                                            <option v-for="option in item.list" v-bind:value="option.value">{{option.name}}</option>
+                                        </select>
+                                    </div>
+                                </template>
+                                <template v-if="item.is_range == 0">
+                                    <div class="col-auto">
+                                        <select class="form-control form-control-sm field-alternatif" v-bind:name="item.id_kriteria" v-model="obj_alternatif[item.id_kriteria]" v-bind:id="item.id_kriteria">
+                                            <option value="0">Pilih {{item.nama_kriteria}}</option>
+                                            <option v-for="option in item.list" v-bind:value="option.value">{{option.name}}</option>
+                                        </select>
+                                    </div>
+                                </template>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -552,6 +596,7 @@
         <script src="asset/sbadmin/js/scripts.js"></script>
         <script src="asset/jquery-3.6.0.js"></script>
         <script src="asset/vue.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script type="text/javascript">
             const vue = new Vue({
               el: '#layoutSidenav',
@@ -581,7 +626,10 @@
                 id_subkriteria: 0,
                 kd_kriteria: '',
                 bobot_kriteria: '',
+                is_range: false,
                 nilai_rating: '',
+                min_value: null,
+                max_value: null,
                 listKriteria: null,
                 optionSubKriteria: null,
                 obj_alternatif: {},
@@ -595,6 +643,7 @@
                   const data = await $.ajax({url: 'Dataalternatif/getAlternatifDetail/' + id_alternatif, dataType: 'JSON'})
                   for (const idx in data) {
                     vue.obj_alternatif[data[idx].id_kriteria] = data[idx].id_sub_kriteria
+                    vue.obj_alternatif['nilai_alternatif-' + data[idx].id_kriteria] = data[idx].nilai_alternatif
                     /*$(`[name="${data[idx].id_kriteria}"]`).val(data[idx].id_sub_kriteria)
                     $(`[name="nilai_alternatif-${data[idx].id_kriteria}"]`).val(data[idx].nilai_alternatif)*/
                   }
@@ -623,10 +672,13 @@
                     const obj = {
                         kd_kriteria: vue.kd_kriteria,
                         nama_kriteria: vue.nama_kriteria,
-                        bobot_kriteria: vue.bobot_kriteria
+                        bobot_kriteria: vue.bobot_kriteria,
+                        is_range: vue.is_range ? 1 : 0
                     }
                     if (vue.id_kriteria) obj.id_kriteria = vue.id_kriteria
-                    $.ajax({
+                    if (!vue.kd_kriteria.length || !vue.nama_kriteria.length || !vue.bobot_kriteria.length) 
+                        Swal.fire({title: 'Semua Data Wajib Diisi!', icon:'error'})
+                    else $.ajax({
                         url: "<?php echo base_url()?>Datakriteria/insert",
                         type: 'POST',
                         data: obj,
@@ -668,6 +720,8 @@
                         id_kriteria: vue.id_kriteria,
                         nama_subkriteria: vue.nama_subkriteria,
                         nilai_rating: vue.nilai_rating,
+                        min_value: vue.min_value,
+                        max_value: vue.max_value,
                         id_subkriteria: vue.id_subkriteria
                     }
                     // if (vue.id_subkriteria) obj.id_subkriteria = vue.id_subkriteria
@@ -677,6 +731,26 @@
                         data: obj,
                         success: () => vue.getListSubKriteria()
                     })
+                },
+                setValueKriteria: id_kriteria => {
+                    console.log(vue.optionSubKriteria.filter(
+                            r => r.id_kriteria == id_kriteria
+                        ).map(m => m.list.filter(
+                            f => vue.inRange(vue.obj_alternatif['nilai_alternatif-' + id_kriteria ], f.max, f.min)
+                        )
+                    ))
+                    const value = vue.optionSubKriteria.filter(
+                            r => r.id_kriteria == id_kriteria
+                        ).map(m => m.list.filter(
+                            f => vue.inRange(vue.obj_alternatif['nilai_alternatif-' + id_kriteria ], f.max, f.min)
+                        )
+                    )[0]
+                    if (value.length) {
+                        vue.obj_alternatif[id_kriteria] = value[0].value
+                        $('#' + id_kriteria).val(vue.obj_alternatif[id_kriteria])
+                        console.log(vue.obj_alternatif[id_kriteria])
+                        console.log(vue.obj_alternatif)
+                    }
                 },
                 deleteSubKriteria: () => {
                     $.ajax({
@@ -689,8 +763,8 @@
                 showError: () => {
                   if($('.field-alternatif').toArray().map(r => $(r).val()).filter(s => !s.length).length) 
                     Swal.fire({title: 'Semua Data Wajib Diisi!', icon:'error'})
-                  else 
-                    $('.btn-simpan-alternatif').attr('type', 'submit')
+                  // else 
+                  //   $('.btn-simpan-alternatif').attr('type', 'submit')
                 },
                 showAlert: () => {
                   Swal.fire({
@@ -733,6 +807,9 @@
                     for (const idx in data) data[idx].detail = JSON.parse(data[idx].detail)
                     vue.listAlternatif = data
                     // vue.total_weight = data.map(r => eval(r.bobot_kriteria)).reduce((a, b) => a + b)
+                },
+                inRange: (x, min, max) => {
+                    return ((x-min)*(x-max) <= 0);
                 },
                 getListMatrixDecision: async () => {
                     const data = await $.ajax({
